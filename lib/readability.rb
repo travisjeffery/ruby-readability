@@ -1,4 +1,3 @@
-require 'rubygems'
 require 'nokogiri'
 
 module Readability
@@ -31,7 +30,7 @@ module Readability
         :okMaybeItsACandidateRe => /and|article|body|column|main|shadow/i,
         :positiveRe => /article|body|content|entry|hentry|main|page|pagination|post|text|blog|story/i,
         :negativeRe => /combx|comment|com-|contact|foot|footer|footnote|masthead|media|meta|outbrain|promo|related|scroll|shoutbox|sidebar|sponsor|shopping|tags|tool|widget/i,
-        :divToPElementsRe => /<(a|blockquote|dl|div|img|ol|p|pre|code|table|ul)/i,
+        :divToPElementsRe => /<(a|blockquote|dl|div|img|ol|p|pre|table|ul)/i,
         :replaceBrsRe => /(<br[^>]*>[ \n\r\t]*){2,}/i,
         :replaceFontsRe => /<(\/?)font[^>]*>/i,
         :trimRe => /^\s+|\s+$/,
@@ -247,7 +246,7 @@ module Readability
       clean_conditionally(node, candidates, "table, ul, div")
 
       # We'll sanitize all elements using a whitelist
-      base_whitelist = @options[:tags] || %w[div p]
+      base_whitelist = @options[:tags] || %w[div p pre code]
       # We'll add whitespace instead of block elements,
       # so a<br>b will have a nice space between them
       base_replace_with_whitespace = %w[br hr h1 h2 h3 h4 h5 h6 dl dd ol li ul address blockquote center]
@@ -328,6 +327,5 @@ module Readability
         end
       end
     end
-
   end
 end
